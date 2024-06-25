@@ -1,6 +1,5 @@
 package homework.section3.test1;
 
-import homework.section3.Settings;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
