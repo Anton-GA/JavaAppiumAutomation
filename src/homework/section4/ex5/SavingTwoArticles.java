@@ -3,6 +3,8 @@ package homework.section4.ex5;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.List;
 
 public class SavingTwoArticles {
@@ -30,7 +33,7 @@ public class SavingTwoArticles {
         capabilities.setCapability("appActivity", ".main.MainActivity");
         capabilities.setCapability("app", "/Users/user/Desktop/JavaAppiumAutomation/JavaAppiumAutomation/apks/org.wikipedia.apk");
 
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+        driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), capabilities);
 
         WebElement element = driver.findElementByXPath("//*[contains(@text, 'Skip')]");
         element.click();
@@ -210,9 +213,9 @@ public class SavingTwoArticles {
 
         TouchAction action = new TouchAction(driver);
         action
-                .press(rightX, middleY)
-                .waitAction(150)
-                .moveTo(leftX, middleY)
+                .press(PointOption.point(rightX, middleY))
+                .waitAction(WaitOptions.waitOptions(Duration.ofMillis(300)))
+                .moveTo(PointOption.point(leftX, middleY))
                 .release()
                 .perform();
     }

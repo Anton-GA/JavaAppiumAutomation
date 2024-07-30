@@ -3,10 +3,12 @@ package lib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import junit.framework.TestCase;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
+import java.time.Duration;
 
 public class CoreTestCase extends TestCase {
 
@@ -22,9 +24,10 @@ public class CoreTestCase extends TestCase {
 
         DesiredCapabilities capabilities = this.getCapabilitiesByPlatformEnv();
         driver = new AndroidDriver(new URL(AppiumURL), capabilities);
+        this.rotateScreenPortrait();
 
-//        WebElement element = driver.findElementByXPath("//*[contains(@text, 'Skip')]");
-//        element.click();
+        WebElement element = driver.findElementByXPath("//*[contains(@text, 'Skip')]");
+        element.click();
     }
 
     @Override
@@ -55,5 +58,17 @@ public class CoreTestCase extends TestCase {
             throw new Exception("Cannot get run platform from env variable. Platform value " + platform);
         }
         return capabilities;
+    }
+
+    protected void rotateScreenPortrait() {
+        driver.rotate(ScreenOrientation.PORTRAIT);
+    }
+
+    protected void rotateScreenLandscape() {
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+    }
+
+    protected void background(Duration duration) {
+        driver.runAppInBackground(duration);
     }
 }
